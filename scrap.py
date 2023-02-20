@@ -42,10 +42,10 @@ for i in range(len(tableau)):
 #creer fonction qui examine les voisins
 #def une funct qui permet de: utiliser fonct de verif dans la fonction d'iteration + renvoie une copie
 
-#Execution
+#Execution:
 #gener un tab + assigner une variable
 #une boucle infinie (While True:) qui affiche le tab de la fonct precedente
 #avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
-# definir que le tableau est egal a tableau copy
+# definir que le tableau est egal a tableau copy.
 
 #end code
