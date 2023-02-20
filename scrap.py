@@ -14,8 +14,8 @@ for ylen in range(tall):
     grid.append(row)
 
 #grid modifications
-grid[2][3] = "X"
-grid[4][3] = "V"
+grid[2][3] = "O"
+grid[0][0] = "X"
 
 #print the grid
 for i in range(len(grid)):
