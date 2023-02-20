@@ -16,6 +16,22 @@ def __init__(xy, yesno):
 #creer fonction qui examine les voisins
 
 #create the Grid
+"""
+wide = 10
+tall = 10
+
+#generer tab 2D avec fonction
+def grid(wide, tall):
+    tab = [[0]*wide]*tall
+    tab[0][1] = 1
+    for i in tab:
+        print(i)
+    return
+#execute said function
+grid (9, 9)
+"""
+
+#"""
 wide = 10
 tall = 10
 grid = []
@@ -28,9 +44,10 @@ for i in range(tall):
 
 #grid modifications
 grid[2][3] = "X"
+grid[5][3] = "V"
 
 #print the grid
 for i in range(len(grid)):
     print(grid[i])
-
+#"""
 #end code
