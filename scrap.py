@@ -90,11 +90,29 @@ def check(tabl, y, x):
     if x != 0 and y < len(tabl): #il y a de la place pour un voisin vers le sud-ouest
         if tabl[y+1][x-1] != "--":
             v=v+1
-    return v
-
-
+    return v #nombre total de voisins
 #example/exec
 print(check(tableau,1,4))
+print("\n")
+
+#FONCTION = ITERATION + DO CHECK + RETURN COPY ("the next step" = next)
+def next(tab):
+    dimy = len(tab) # y dimension (vertical)
+    dimx = len(tab[0]) # x dimension (horizontal)
+    print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
+    copy = tab #copie du tableau a ecrire dessus
+    for i in range (dimy):
+        for j in range (dimx):
+            life = random.randint(0,1) #randomize life of cells
+            if life == 0:
+                tab[i][j] = str(i)+":"+str(j) #cell is alive
+            else:
+                tab[i][j] = "---" #cell is dead
+    for i in range(dimy):
+        print(tab[i])
+    return
+#example/exec
+next(tableau)
 print (random.randint(0,1))
 
 #definir largeur et longueur de mon tableau.
