@@ -1,27 +1,6 @@
 #import random
 import random
 
-#"""
-wide = 5
-tall = 5
-grid = []
-cell = "*"
-
-for ylen in range(tall):
-    row = []
-    for xlen in range(wide):
-        row.append(cell)
-    grid.append(row)
-
-#grid modifications
-grid[2][3] = "O"
-grid[0][0] = "X"
-
-#print the grid
-for i in range(len(grid)):
-    print(grid[i])
-print("\n")
-
 
 
 #FONCTION (grille) DE CREATION DE TABLEAU (tab):
@@ -35,7 +14,7 @@ def grille(xdim,ydim):
         tab.append(line)
     return tab
 #example/exec
-print("example de tableau avec appel de fonction grille")
+print("example de generation tableau avec appel de fonction grille")
 tableau = grille(9,9)
 tableau[0][0] = "00"
 tableau[1][4] = "14"
@@ -43,7 +22,6 @@ tableau[8][8] = "88"
 for i in range(len(tableau)):
     print(tableau[i])
 print("\n")
-
 
 
 #FONCTION ITERATIVE (iter)
@@ -90,10 +68,15 @@ def check(tabl, y, x):
     if x != 0 and y < len(tabl): #il y a de la place pour un voisin vers le sud-ouest
         if tabl[y+1][x-1] != "--":
             v=v+1
+    return v
+
+
     return v #nombre total de voisins
 #example/exec
+print("voisins de la case 1,4")
 print(check(tableau,1,4))
 print("\n")
+
 
 #FONCTION = ITERATION + DO CHECK + RETURN COPY ("the next step" = next)
 def next(tab):
@@ -110,10 +93,11 @@ def next(tab):
                 tab[i][j] = "---" #cell is dead
     for i in range(dimy):
         print(tab[i])
-    return
+    print("voisins de la case 0,0")
+    print(check(tableau,0,0))
+    return copy
 #example/exec
-next(tableau)
-print (random.randint(0,1))
+new = next(tableau)
 
 #definir largeur et longueur de mon tableau.
 #creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes.
