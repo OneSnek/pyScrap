@@ -15,7 +15,7 @@ def grille(xdim,ydim):
     return tab
 #example/exec
 print("example de generation tableau avec appel de fonction grille")
-tableau = grille(9,9)
+tableau = grille(9,9) #GENERATION DU TABLEAU / EXEC 1
 tableau[0][0] = "0:0"
 tableau[1][4] = "1:4"
 tableau[8][8] = "8:8"
@@ -115,7 +115,7 @@ def next(tab):
         print(copy[i])
     return copy
 #example/exec
-new = next(tableau)
+tableauCopy = next(tableau)
 
 #definir largeur et longueur de mon tableau.
 #creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes.
@@ -129,4 +129,4 @@ new = next(tableau)
 #avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
 # definir que le tableau est egal a tableau copy.
 
-#end code
+#end the code
