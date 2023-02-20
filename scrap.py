@@ -44,29 +44,29 @@ print("\n")
 #FONCTION QUI EXAMINE LES VOISINS (check)
 def check(tabl, y, x):
     v = 0 #nombre de voisins vivants
-    if y != 0: #il y a de la place pour un voisin vers le nord
-        if tabl[y-1][x] != "--":
+    if y > 0: #il y a de la place pour un voisin vers le nord
+        if tabl[y-1][x] != "---":
             v=v+1
-    if y < len(tabl): #il y a de la place pour un voisin vers le sud
-        if tabl[y+1][x] != "--":
+    if y < len(tabl)-1: #il y a de la place pour un voisin vers le sud
+        if tabl[y+1][x] != "---":
             v=v+1
-    if x < len(tabl[0]): #il y a de la place pour un voisin vers l'est
-        if tabl[y][x+1] != "--":
+    if x < len(tabl[0])-1: #il y a de la place pour un voisin vers l'est
+        if tabl[y][x+1] != "---":
             v=v+1
-    if x != 0: #il y a de la place pour un voisin vers l'ouest
-        if tabl[y][x-1] != "--":
+    if x > 0: #il y a de la place pour un voisin vers l'ouest
+        if tabl[y][x-1] != "---":
             v=v+1
     if x!=0 and y!=0: #il y a de la place pour un voisin vers le nord-ouest
-        if tabl[y-1][x-1] != "--":
+        if tabl[y-1][x-1] != "---":
             v=v+1
-    if x < len(tabl[0]) and y!=0: #il y a de la place pour un voisin vers le nord-est
-        if tabl[y-1][x+1] != "--":
+    if x < len(tabl[0])-1 and y!=0: #il y a de la place pour un voisin vers le nord-est
+        if tabl[y-1][x+1] != "---":
             v=v+1
-    if x < len(tabl[0]) and y < len(tabl): #il y a de la place pour un voisin vers le sud-est
-        if tabl[y+1][x+1] != "--":
+    if x < len(tabl[0])-1 and y < len(tabl)-1: #il y a de la place pour un voisin vers le sud-est
+        if tabl[y+1][x+1] != "---":
             v=v+1
-    if x != 0 and y < len(tabl): #il y a de la place pour un voisin vers le sud-ouest
-        if tabl[y+1][x-1] != "--":
+    if x != 0 and y < len(tabl)-1: #il y a de la place pour un voisin vers le sud-ouest
+        if tabl[y+1][x-1] != "---":
             v=v+1
     return v
 
