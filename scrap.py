@@ -6,7 +6,7 @@ import random
 #FONCTION (grille) DE CREATION DE TABLEAU (tab):
 def grille(xdim,ydim):
     tab = []
-    cell = "--"
+    cell = "---"
     for i in range(ydim):
         line = []
         for  i in range (xdim):
@@ -16,9 +16,9 @@ def grille(xdim,ydim):
 #example/exec
 print("example de generation tableau avec appel de fonction grille")
 tableau = grille(9,9)
-tableau[0][0] = "00"
-tableau[1][4] = "14"
-tableau[8][8] = "88"
+tableau[0][0] = "0:0"
+tableau[1][4] = "1:4"
+tableau[8][8] = "8:8"
 for i in range(len(tableau)):
     print(tableau[i])
 print("\n")
@@ -83,7 +83,8 @@ def next(tab):
     dimy = len(tab) # y dimension (vertical)
     dimx = len(tab[0]) # x dimension (horizontal)
     print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
-    copy = tab #copie du tableau a ecrire dessus
+    copy = grille(dimy,dimx) #copie du tableau pour ecrire dessus
+
     for i in range (dimy):
         for j in range (dimx):
             life = random.randint(0,1) #randomize life of cells
@@ -91,10 +92,27 @@ def next(tab):
                 tab[i][j] = str(i)+":"+str(j) #cell is alive
             else:
                 tab[i][j] = "---" #cell is dead
+                
+    for i in range(dimy):
+            for j in range(dimx):
+                vv = check(tab,i,j) #nombre de voisins vivants de la case [i:j]
+                if vv < 2 and tab[i][j] != "---": #cell is alive but has less than 2 neighbors
+                    copy[i][j] = "---" #UNDERPOPULATION: alive cell becomes dead
+                elif vv > 3 and tab[i][j] != "---": #cell is alive but has more than 3 neighbors
+                    copy[i][j] = "---" #OVERPOPULATION: alive cell becomes dead
+                else: # vv is 2 or 3
+                    copy[i][j] = tab[i][j] #SURVIVAL: alive cells remain alive
+                if vv == 3 and tab[i][j] == "---": #cell is dead but has exactly 3 neighbors
+                    copy[i][j] = str(i)+":"+str(j) #REPRODUCTION: dead cell becomes alive
+                else: #nothing happens: dead cells stay dead
+                    copy[i][j] = tab[i][j]
+
     for i in range(dimy):
         print(tab[i])
-    print("voisins de la case 0,0")
+    print("voisins de la case 0/0 currently " + tab[0][0])
     print(check(tableau,0,0))
+    for i in range(dimy):
+        print(copy[i])
     return copy
 #example/exec
 new = next(tableau)
