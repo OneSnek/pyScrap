@@ -78,11 +78,23 @@ def check(tabl, y, x):
     if x != 0: #il y a de la place pour un voisin vers l'ouest
         if tabl[y][x-1] != "--":
             v=v+1
+    if x!=0 and y!=0: #il y a de la place pour un voisin vers le nord-ouest
+        if tabl[y-1][x-1] != "--":
+            v=v+1
+    if x < len(tabl[0]) and y!=0: #il y a de la place pour un voisin vers le nord-est
+        if tabl[y-1][x+1] != "--":
+            v=v+1
+    if x < len(tabl[0]) and y < len(tabl): #il y a de la place pour un voisin vers le sud-est
+        if tabl[y+1][x+1] != "--":
+            v=v+1
+    if x != 0 and y < len(tabl): #il y a de la place pour un voisin vers le sud-ouest
+        if tabl[y+1][x-1] != "--":
+            v=v+1
     return v
 
 
 #example/exec
-print(check(tableau,0,0))
+print(check(tableau,1,4))
 print (random.randint(0,1))
 
 #definir largeur et longueur de mon tableau.
