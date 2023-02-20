@@ -20,7 +20,21 @@ grid[0][0] = "X"
 #print the grid
 for i in range(len(grid)):
     print(grid[i])
-#"""
+
+#function time:
+def grille(xdim,ydim):
+    tab = []
+    cell = "*"
+    for i in range(ydim):
+        line = []
+        for  i in range (xdim):
+            line.append(cell)
+        tab.append(line)
+    return tab
+
+tableau = grille(9,9)
+for i in range(len(tableau)):
+    print(tableau[i])
 
 
 #end code
