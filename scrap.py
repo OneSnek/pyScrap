@@ -36,5 +36,16 @@ tableau = grille(9,9)
 for i in range(len(tableau)):
     print(tableau[i])
 
+#definir largeur et longueur de mon tableau 2D
+#creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes
+#creer une fonction qui itere sur chaque cell du tab (parcours)
+#creer fonction qui examine les voisins
+#def une funct qui permet de: utiliser fonct de verif dans la fonction d'iteration + renvoie une copie
+
+#Execution
+#gener un tab + assigner une variable
+#une boucle infinie (While True:) qui affiche le tab de la fonct precedente
+#avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
+# definir que le tableau est egal a tableau copy
 
 #end code
