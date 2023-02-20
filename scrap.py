@@ -24,7 +24,7 @@ print("\n")
 
 
 
-#FUNCTION TIME:
+#FONCTION (grille) DE CREATION DE TABLEAU (tab):
 def grille(xdim,ydim):
     tab = []
     cell = "--"
@@ -34,7 +34,7 @@ def grille(xdim,ydim):
             line.append(cell)
         tab.append(line)
     return tab
-#example
+#example/exec
 print("example de tableau avec appel de fonction grille")
 tableau = grille(9,9)
 tableau[0][0] = "00"
@@ -46,10 +46,10 @@ print("\n")
 
 
 
-#FONCTION ITERATIVE
+#FONCTION ITERATIVE (iter)
 def iter(tab):
-    dimy = len(tab) # x dimension (horizontal)
-    dimx = len(tab[0]) # y dimension (vertical)
+    dimy = len(tab) # y dimension (vertical)
+    dimx = len(tab[0]) # x dimension (horizontal)
     print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
     for i in range (dimy):
         for j in range (dimx):
@@ -57,15 +57,36 @@ def iter(tab):
     for i in range(dimy):
         print(tab[i])
     return
-#example
+#example/exec
 print("example appel fonction iterative")
 iter(tableau)
+print("\n")
 
-#final print
+
+#FONCTION QUI EXAMINE LES VOISINS (check)
+def check(tabl, y, x):
+    v = 0 #nombre de voisins vivants
+    if y != 0: #il y a de la place pour un voisin vers le nord
+        if tabl[y-1][x] != "--":
+            v=v+1
+    if y < len(tabl): #il y a de la place pour un voisin vers le sud
+        if tabl[y+1][x] != "--":
+            v=v+1
+    if x < len(tabl[0]): #il y a de la place pour un voisin vers l'est
+        if tabl[y][x+1] != "--":
+            v=v+1
+    if x != 0: #il y a de la place pour un voisin vers l'ouest
+        if tabl[y][x-1] != "--":
+            v=v+1
+    return v
 
 
-#definir largeur et longueur de mon tableau 2D? check
-#creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes? check
+#example/exec
+print(check(tableau,0,0))
+print (random.randint(0,1))
+
+#definir largeur et longueur de mon tableau.
+#creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes.
 #creer une fonction qui itere sur chaque cell du tab (parcours)
 #creer fonction qui examine les voisins
 #def une funct qui permet de: utiliser fonct de verif dans la fonction d'iteration + renvoie une copie
