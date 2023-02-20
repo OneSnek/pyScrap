@@ -1,7 +1,7 @@
 #import random
 import random
 
-#define the cells
+#define the cells via class
 """
 class Cell(object):
     position = (int,int)
@@ -15,16 +15,16 @@ def __init__(xy, yesno):
 #create the Grid
 wide = 10
 tall = 10
-grille = []
+grid = []
 row = []
-cell = "."
+cell = "*"
 for i in range(wide):
-    row[i] = cell
+    row.append(cell)
 for i in range(tall):
-    grille.append(row)
+    grid.append(row)
 
+#print the grid
+for i in range(len(grid)):
+    print(grid[i])
 
-
-
-
-#code the rules
+#end code
