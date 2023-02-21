@@ -1,8 +1,5 @@
 #import random
 import random
-
-
-
 #FONCTION (grille) DE CREATION DE TABLEAU (tab):
 def grille(xdim,ydim):
     tab = []
@@ -15,6 +12,7 @@ def grille(xdim,ydim):
     return tab
 #example/exec
 print("example de generation tableau avec appel de fonction grille")
+tableau = grille(9,9)
 tableau = grille(9,9) #GENERATION DU TABLEAU / EXEC 1
 tableau[0][0] = "0:0"
 tableau[1][4] = "1:4"
@@ -22,8 +20,6 @@ tableau[8][8] = "8:8"
 for i in range(len(tableau)):
     print(tableau[i])
 print("\n")
-
-
 #FONCTION ITERATIVE (iter)
 def iter(tab):
     dimy = len(tab) # y dimension (vertical)
@@ -39,8 +35,6 @@ def iter(tab):
 print("example appel fonction iterative")
 iter(tableau)
 print("\n")
-
-
 #FONCTION QUI EXAMINE LES VOISINS (check)
 def check(tabl, y, x):
     v = 0 #nombre de voisins vivants
@@ -69,22 +63,17 @@ def check(tabl, y, x):
         if tabl[y+1][x-1] != "---":
             v=v+1
     return v
-
-
     return v #nombre total de voisins
 #example/exec
 print("voisins de la case 1,4")
 print(check(tableau,1,4))
 print("\n")
-
-
 #FONCTION = ITERATION + DO CHECK + RETURN COPY ("the next step" = next)
 def next(tab):
     dimy = len(tab) # y dimension (vertical)
     dimx = len(tab[0]) # x dimension (horizontal)
     print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
     copy = grille(dimy,dimx) #copie du tableau pour ecrire dessus
-
     for i in range (dimy):
         for j in range (dimx):
             life = random.randint(0,1) #randomize life of cells
@@ -106,7 +95,6 @@ def next(tab):
                     copy[i][j] = str(i)+":"+str(j) #REPRODUCTION: dead cell becomes alive
                 else: #nothing happens: dead cells stay dead
                     copy[i][j] = tab[i][j]
-
     for i in range(dimy):
         print(tab[i])
     print("voisins de la case 0/0 currently " + tab[0][0])
@@ -115,6 +103,7 @@ def next(tab):
         print(copy[i])
     return copy
 #example/exec
+new = next(tableau)
 tableauCopy = next(tableau)
 
 #definir largeur et longueur de mon tableau.
@@ -122,11 +111,11 @@ tableauCopy = next(tableau)
 #creer une fonction qui itere sur chaque cell du tab (parcours)
 #creer fonction qui examine les voisins
 #def une funct qui permet de: utiliser fonct de verif dans la fonction d'iteration + renvoie une copie
-
 #Execution:
 #gener un tab + assigner une variable
 #une boucle infinie (While True:) qui affiche le tab de la fonct precedente
 #avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
 # definir que le tableau est egal a tableau copy.
 
+#end code
 #end the code
