@@ -1,4 +1,24 @@
-#import random
+import requests
+from bs4 import BeautifulSoup
+
+baseUrl = 'https://studyrama.com'
+uri = "/megamoteur/recherche?query=developement&type=E%20F%20O"
+
+response = requests.get(baseUrl + uri)
+
+if response.ok:
+    print(response.text)
+    swoup = BeautifulSoup(response.text, "html.parser")
+
+    ul = swoup.find("ul", {"class": "results"})
+    lis = ul.findAll("li")
+    for li in lis:
+        a = li.find("a")
+        print(baseUrl + a["href"])
+
+print(response.ok) #verifie si le site est scrappable
+
+"""#CORNWAY'S GAME OF LIFE
 import random
 #FONCTION (grille) DE CREATION DE TABLEAU (tab):
 def grille(xdim,ydim):
@@ -116,6 +136,6 @@ tableauCopy = next(tableau)
 #une boucle infinie (While True:) qui affiche le tab de la fonct precedente
 #avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
 # definir que le tableau est egal a tableau copy.
-
+"""
 #end code
 #end the code
