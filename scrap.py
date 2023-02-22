@@ -16,7 +16,7 @@ if response.ok:
         a = li.find("a")
         print(baseUrl + a["href"])
 
-print(response.ok) #verifie si le site est scrappable
+print(response.ok) #verifie si le site est scrappable:
 
 """#CORNWAY'S GAME OF LIFE
 import random
