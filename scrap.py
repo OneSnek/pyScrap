@@ -7,7 +7,7 @@ uri = "/megamoteur/recherche?query=developement&type=E%20F%20O"
 response = requests.get(baseUrl + uri)
 
 if response.ok:
-    print(response.text)
+    print(response.text)# imprime la reponse en texte
     swoup = BeautifulSoup(response.text, "html.parser")
 
     ul = swoup.find("ul", {"class": "results"})
@@ -16,6 +16,16 @@ if response.ok:
         a = li.find("a")
         print(baseUrl + a["href"])
 
+print("Is the site "+str(baseUrl)+" scrappable?")
+print(response.ok) #verifie si le site est scrappable:
+
+# ---- ATTEMPT WITH DIFFERENT SITE ----
+
+baseUrl = 'https://www.linkedin.com'
+uri = "/jobs/search/?currentJobId=3484486183&f_JT=I&f_PP=103815258&geoId=105015875&keywords=Cybersécurité&location=France&refresh=true"
+
+response = requests.get(baseUrl + uri)
+print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
 """#CORNWAY'S GAME OF LIFE
