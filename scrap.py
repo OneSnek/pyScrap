@@ -27,7 +27,7 @@ uri = "/jobs/search/?currentJobId=3484486183&f_JT=I&f_PP=103815258&geoId=1050158
 response = requests.get(baseUrl + uri)
 
 if response.ok:
-    print(response.test)
+    print(response.text)
 
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
