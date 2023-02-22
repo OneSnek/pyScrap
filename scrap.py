@@ -25,6 +25,10 @@ baseUrl = 'https://www.linkedin.com'
 uri = "/jobs/search/?currentJobId=3484486183&f_JT=I&f_PP=103815258&geoId=105015875&keywords=Cybersécurité&location=France&refresh=true"
 
 response = requests.get(baseUrl + uri)
+
+if response.ok:
+    print(response.test)
+
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
