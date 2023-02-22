@@ -32,7 +32,11 @@ if response.ok:
     print(response.text)
     swoup = BeautifulSoup(response.text, "html.parser")
 
-    #ul = swoup.find("ul", {"class": "results"})
+    ul = swoup.find("ul", {"class": "scaffold-layout__list-container"})
+    lis = ul.findAll("li")
+    for li in lis:
+        a = li.find("data-occludable-job-id")
+        print(a["href"])
 
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
