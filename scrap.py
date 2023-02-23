@@ -11,9 +11,9 @@ if response.ok:
     swoup = BeautifulSoup(response.text, "html.parser")
 
     ul = swoup.find("ul", {"class": "results"})
-    lis = ul.findAll("li")
-    for li in lis:
-        a = li.find("a")
+    index = ul.findAll("tabindex")
+    for i in index:
+        a = i.find("a")
         print(baseUrl + a["href"])
 
 print("Is the site "+str(baseUrl)+" scrappable?")
