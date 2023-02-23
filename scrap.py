@@ -32,3 +32,8 @@ if response.ok:
     for li in lis:
         a = li.find("a")
         print(baseUrl + a["href"])
+
+
+print("Is the site "+str(baseUrl)+" scrappable?")
+print(response.ok) #verifie si le site est scrappable:
+#END OF CODE
