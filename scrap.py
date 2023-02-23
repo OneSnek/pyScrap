@@ -4,7 +4,7 @@ baseUrl = 'https://studyrama.com'
 uri = "/megamoteur/recherche?query=developement&type=E%20F%20O"
 response = requests.get(baseUrl + uri)
 if response.ok:
-    print(response.text)# imprime la reponse en texte
+    # print(response.text)# imprime la reponse en texte
     swoup = BeautifulSoup(response.text, "html.parser")
 
     ul = swoup.find("ul", {"class": "results"})
@@ -14,28 +14,30 @@ if response.ok:
     lis = ul.findAll("tabindex")
     for li in lis:
         a = i.find("a")
-        print(baseUrl + a["href"])
+#         print(baseUrl + a["href"])
 
-print("Is the site "+str(baseUrl)+" scrappable?")
+# print("Is the site "+str(baseUrl)+" scrappable?")
+# print(response.ok) #verifie si le site est scrappable:
 
 
-print(response.ok) #verifie si le site est scrappable:
 # -------------------------------------
 # ---- ATTEMPT WITH DIFFERENT SITE ----
 # -------------------------------------
 
 
-baseUrl = 'https://www.monster.fr/'
-uri = "/emploi/recherche?q=Cybersecurité&where=Lyon&page=1&et=INTERN&so=m.h.s"
+baseUrl = 'https://www.linkedin.com/'
+uri = "/newsletters/la-cybergazette-by-advens-6988070565068591104/"
+
 response = requests.get(baseUrl + uri)
-if response.ok:
-    print(response.text)# imprime la reponse en texte
-    swoup = BeautifulSoup(response.text, "html.parser")
-    ul = swoup.find("ul", {"class": "job-search-resultsstyle__CardGrid-sc-1wpt60k-0 jnjWtZ"})
-    index = ul.findAll("tabindex")
-    for i in index:
-        a = index.find("a")
-        print(baseUrl + a["href"])
+# if response.ok:
+#     # print(response.text)# imprime la reponse en texte
+#     swoup = BeautifulSoup(response.text, "html.parser")
+#     divs = swoup.findAll("div", {"class": "job-search-resultsstyle__JobCardWrap-sc-1wpt60k-5"})
+#     # index = ul.findAll("tabindex")
+#     for div in divs:
+#         # a = index.find("a")
+#         # print(baseUrl + a["href"])
+#         print(div)
 
 
 print("Is the site "+str(baseUrl)+" scrappable?")
