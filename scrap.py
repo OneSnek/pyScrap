@@ -23,142 +23,24 @@ print(response.ok) #verifie si le site est scrappable:
 # ---- ATTEMPT WITH DIFFERENT SITE ----
 # -------------------------------------
 
-baseUrl = 'https://www.linkedin.com'
-uri = "/jobs/search/?currentJobId=3484486183&f_JT=I&f_PP=103815258&geoId=105015875&keywords=Cybersécurité&location=France&refresh=true"
+baseUrl = 'https://www.monster.fr/'
+uri = "/emploi/recherche?q=Cybersecurité&where=Lyon&page=1&et=INTERN&so=m.h.s"
 
 response = requests.get(baseUrl + uri)
 
 if response.ok:
-    print(response.text)
+    print(response.text)# imprime la reponse en texte
     swoup = BeautifulSoup(response.text, "html.parser")
 
-    ul = swoup.find("ul", {"class": "scaffold-layout__list-container"})
-    lis = ul.findAll("li")
+    ul = swoup.find("ul", {"class": "job-search-resultsstyle__CardGrid-sc-1wpt60k-0 jnjWtZ"})
+    lis = ul.findAll("job-search-resultsstyle__JobCardWrap-sc-1wpt60k-5")
     for li in lis:
-        a = li.find("data-occludable-job-id")
-        print(a["href"])
+        a = li.find("a")
+        print(baseUrl + a["href"])
 
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
-"""#CORNWAY'S GAME OF LIFE
-import random
-#FONCTION (grille) DE CREATION DE TABLEAU (tab):
-def grille(xdim,ydim):
-    tab = []
-    cell = "---"
-    for i in range(ydim):
-        line = []
-        for  i in range (xdim):
-            line.append(cell)
-        tab.append(line)
-    return tab
-#example/exec
-print("example de generation tableau avec appel de fonction grille")
-tableau = grille(9,9)
-tableau = grille(9,9) #GENERATION DU TABLEAU / EXEC 1
-tableau[0][0] = "0:0"
-tableau[1][4] = "1:4"
-tableau[8][8] = "8:8"
-for i in range(len(tableau)):
-    print(tableau[i])
-print("\n")
-#FONCTION ITERATIVE (iter)
-def iter(tab):
-    dimy = len(tab) # y dimension (vertical)
-    dimx = len(tab[0]) # x dimension (horizontal)
-    print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
-    for i in range (dimy):
-        for j in range (dimx):
-            tab[i][j] = str(i)+str(j)
-    for i in range(dimy):
-        print(tab[i])
-    return
-#example/exec
-print("example appel fonction iterative")
-iter(tableau)
-print("\n")
-#FONCTION QUI EXAMINE LES VOISINS (check)
-def check(tabl, y, x):
-    v = 0 #nombre de voisins vivants
-    if y > 0: #il y a de la place pour un voisin vers le nord
-        if tabl[y-1][x] != "---":
-            v=v+1
-    if y < len(tabl)-1: #il y a de la place pour un voisin vers le sud
-        if tabl[y+1][x] != "---":
-            v=v+1
-    if x < len(tabl[0])-1: #il y a de la place pour un voisin vers l'est
-        if tabl[y][x+1] != "---":
-            v=v+1
-    if x > 0: #il y a de la place pour un voisin vers l'ouest
-        if tabl[y][x-1] != "---":
-            v=v+1
-    if x!=0 and y!=0: #il y a de la place pour un voisin vers le nord-ouest
-        if tabl[y-1][x-1] != "---":
-            v=v+1
-    if x < len(tabl[0])-1 and y!=0: #il y a de la place pour un voisin vers le nord-est
-        if tabl[y-1][x+1] != "---":
-            v=v+1
-    if x < len(tabl[0])-1 and y < len(tabl)-1: #il y a de la place pour un voisin vers le sud-est
-        if tabl[y+1][x+1] != "---":
-            v=v+1
-    if x != 0 and y < len(tabl)-1: #il y a de la place pour un voisin vers le sud-ouest
-        if tabl[y+1][x-1] != "---":
-            v=v+1
-    return v
-    return v #nombre total de voisins
-#example/exec
-print("voisins de la case 1,4")
-print(check(tableau,1,4))
-print("\n")
-#FONCTION = ITERATION + DO CHECK + RETURN COPY ("the next step" = next)
-def next(tab):
-    dimy = len(tab) # y dimension (vertical)
-    dimx = len(tab[0]) # x dimension (horizontal)
-    print ("tableau is " + str(dimy) + " tall(Y) and " + str(dimx) + " wide(X):")
-    copy = grille(dimy,dimx) #copie du tableau pour ecrire dessus
-    for i in range (dimy):
-        for j in range (dimx):
-            life = random.randint(0,1) #randomize life of cells
-            if life == 0:
-                tab[i][j] = str(i)+":"+str(j) #cell is alive
-            else:
-                tab[i][j] = "---" #cell is dead
-                
-    for i in range(dimy):
-            for j in range(dimx):
-                vv = check(tab,i,j) #nombre de voisins vivants de la case [i:j]
-                if vv < 2 and tab[i][j] != "---": #cell is alive but has less than 2 neighbors
-                    copy[i][j] = "---" #UNDERPOPULATION: alive cell becomes dead
-                elif vv > 3 and tab[i][j] != "---": #cell is alive but has more than 3 neighbors
-                    copy[i][j] = "---" #OVERPOPULATION: alive cell becomes dead
-                else: # vv is 2 or 3
-                    copy[i][j] = tab[i][j] #SURVIVAL: alive cells remain alive
-                if vv == 3 and tab[i][j] == "---": #cell is dead but has exactly 3 neighbors
-                    copy[i][j] = str(i)+":"+str(j) #REPRODUCTION: dead cell becomes alive
-                else: #nothing happens: dead cells stay dead
-                    copy[i][j] = tab[i][j]
-    for i in range(dimy):
-        print(tab[i])
-    print("voisins de la case 0/0 currently " + tab[0][0])
-    print(check(tableau,0,0))
-    for i in range(dimy):
-        print(copy[i])
-    return copy
-#example/exec
-new = next(tableau)
-tableauCopy = next(tableau)
 
-#definir largeur et longueur de mon tableau.
-#creer fonction qui generert renvoie un tab 2D rempli de cellules mortes ou vivantes.
-#creer une fonction qui itere sur chaque cell du tab (parcours)
-#creer fonction qui examine les voisins
-#def une funct qui permet de: utiliser fonct de verif dans la fonction d'iteration + renvoie une copie
-#Execution:
-#gener un tab + assigner une variable
-#une boucle infinie (While True:) qui affiche le tab de la fonct precedente
-#avec comme parametre le tableau, l'assigner a une variable "tableauCopy"
-# definir que le tableau est egal a tableau copy.
-"""
-#end code
-#end the code
+
+#END OF CODE
