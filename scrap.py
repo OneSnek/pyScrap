@@ -35,9 +35,12 @@ if response.ok:
     swoup = BeautifulSoup(response.text, "html.parser")
     #MAIN ARTICLES
     articles = swoup.findAll("article", {"class": "top-table-list"})
+    url = []
     for article in articles:
         a = article.find("a")
-        print(baseUrl+a["href"])
+        url.append({"link":baseUrl+a["href"]})
+    print(url)
+        #dictio = baseUrl+a["href"]
     #SECONDARY ARTICLES [impossible! Uses JavaScript]
     # divs = swoup.findAll("div", {"class": "list-item"})
     # for div in divs:
@@ -48,9 +51,9 @@ print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
 #TOOLKIT FUNCTIONS
-def fileWriter(file,fieldnames, data):
-        with open(file, 'w', encoding='UTF8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
+def fileWriter(file, data):
+        with open(file, 'w+', encoding='UTF8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=data[0].keys())
             writer.writeheader()
             writer.writerows(data)
 
@@ -59,5 +62,8 @@ def addBaseUrl(baseUrl, urls):
         for url in urls:
             res.append(baseUrl + url)
         return res
+# ------------------------------------------
+
+fileWriter('links.csv', url)
 
 #END OF THE CODE
