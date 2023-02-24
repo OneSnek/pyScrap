@@ -1,4 +1,5 @@
 import requests
+import csv
 from bs4 import BeautifulSoup
 
 # baseUrl = 'https://studyrama.com'
@@ -45,4 +46,18 @@ if response.ok:
 
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
-#END OF CODE
+
+#TOOLKIT FUNCTIONS
+def fileWriter(file,fieldnames, data):
+        with open(file, 'w', encoding='UTF8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(data)
+
+def addBaseUrl(baseUrl, urls):
+        res = []
+        for url in urls:
+            res.append(baseUrl + url)
+        return res
+
+#END OF THE CODE
