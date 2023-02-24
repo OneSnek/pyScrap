@@ -33,9 +33,13 @@ response = requests.get(baseUrl + uri)
 
 if response.ok:
     swoup = BeautifulSoup(response.text, "html.parser")
-    divs = swoup.find("div", {"class": "top-table-list-section"})
+    articles = swoup.findAll("article", {"class": "top-table-list"})
+    for article in articles:
+        a = article.find("a")
+        print(baseUrl+a["href"])
+    divs = swoup.findAll("div", {"class": "results-list--headline-container"})
     for div in divs:
-        a = div.find("a")
+        a = article.find("a")
         print(baseUrl+a["href"])
 
 
