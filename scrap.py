@@ -21,6 +21,8 @@ from bs4 import BeautifulSoup
 #     print("Is the site "+str(baseUrl)+" scrappable?")
 #     print(response.ok) #verifie si le site est scrappable:
 
+
+
 # -------------------------------------
 # ---- ATTEMPT WITH DIFFERENT SITE ----
 # -------------------------------------
@@ -68,7 +70,7 @@ def tryToCleanOrReturnBlank(str):
         except:
             result = ""
         return result
-# ------------------------------------------
+# ------------------------------------------csv imported
 
 fileWriter('links.csv', url)
 
@@ -81,7 +83,10 @@ def getInfoByPage(soup):
                 headline = tryToCleanOrReturnBlank(info.find("div", {"class": "headline"}))
                 subline = tryToCleanOrReturnBlank(info.find("div", {"class": "sub-headline"}))
                 #print(headline)
-
+                fiche = [overline, headline, subline] #en POO doit être une instance de classe "NacionEntry"
+                fiches = fiches.append(fiche)
         return fiches
+
+
 
 #END OF THE CODE
