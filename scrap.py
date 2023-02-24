@@ -40,7 +40,6 @@ if response.ok:
         a = article.find("a")
         url.append({"link":baseUrl+a["href"]})
     print(url)
-        #dictio = baseUrl+a["href"]
     #SECONDARY ARTICLES [impossible! Uses JavaScript]
     # divs = swoup.findAll("div", {"class": "list-item"})
     # for div in divs:
@@ -50,7 +49,7 @@ if response.ok:
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
-#TOOLKIT FUNCTIONS
+#TOOLKIT FUNCTIONS ------------------------
 def fileWriter(file, data):
         with open(file, 'w+', encoding='UTF8', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=data[0].keys())
@@ -62,8 +61,27 @@ def addBaseUrl(baseUrl, urls):
         for url in urls:
             res.append(baseUrl + url)
         return res
+
+def tryToCleanOrReturnBlank(str):
+        try:
+            result = str.getText().strip()
+        except:
+            result = ""
+        return result
 # ------------------------------------------
 
 fileWriter('links.csv', url)
+
+def getInfoByPage(soup):
+        fiches = []
+        infos = swoup.findAll("div", {"class": "primary-font__PrimaryFontStyles-o56yd5-0"})
+        if infos != None:
+            for info in infos:
+                overline = tryToCleanOrReturnBlank(info.find("div", {"class": "overline"}))
+                headline = tryToCleanOrReturnBlank(info.find("div", {"class": "headline"}))
+                subline = tryToCleanOrReturnBlank(info.find("div", {"class": "sub-headline"}))
+                #print(headline)
+
+        return fiches
 
 #END OF THE CODE
