@@ -1,36 +1,11 @@
 import requests
 import csv
 from bs4 import BeautifulSoup
+#All imports ready
 
-# baseUrl = 'https://studyrama.com'
-# uri = "/megamoteur/recherche?query=developement&type=E%20F%20O"
-# response = requests.get(baseUrl + uri)
-# if response.ok:
-#     # print(response.text)# imprime la reponse en texte
-#     swoup = BeautifulSoup(response.text, "html.parser")
-
-#     ul = swoup.find("ul", {"class": "results"})
-#     lis = ul.findAll("li")
-#     for li in lis:
-#         a = li.find("a")
-#     lis = ul.findAll("tabindex")
-#     for li in lis:
-#         a = i.find("a")
-#         print(baseUrl + a["href"])
-
-#     print("Is the site "+str(baseUrl)+" scrappable?")
-#     print(response.ok) #verifie si le site est scrappable:
-
-
-
-# -------------------------------------
-# ---- ATTEMPT WITH DIFFERENT SITE ----
-# -------------------------------------
-
-
+#Base URL + URI + response
 baseUrl = "https://www.nacion.com"
 uri = "/ultimas-noticias/"
-
 response = requests.get(baseUrl + uri)
 
 if response.ok:
@@ -42,16 +17,15 @@ if response.ok:
         a = article.find("a")
         url.append({"link":baseUrl+a["href"]})
     print(url)
-    #SECONDARY ARTICLES [impossible! Uses JavaScript]
-    # divs = swoup.findAll("div", {"class": "list-item"})
-    # for div in divs:
-    #     a = article.find("a")
-    #     print(baseUrl+a["href"])
+
+
 
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
+
 #TOOLKIT FUNCTIONS ------------------------
+#------------------------------------------
 def fileWriter(file, data):
         with open(file, 'w+', encoding='UTF8', newline='') as f:
             writer = csv.DictWriter(f, fieldnames=data[0].keys())
@@ -70,10 +44,11 @@ def tryToCleanOrReturnBlank(str):
         except:
             result = ""
         return result
+# ------------------------------------------------------
 # ------------------------------------------csv imported
-
 fileWriter('links.csv', url)
 
+#GET ENDPOINTS
 def getInfoByPage(soup):
         fiches = []
         infos = swoup.findAll("div", {"class": "primary-font__PrimaryFontStyles-o56yd5-0"})
