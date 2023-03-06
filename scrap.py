@@ -118,6 +118,7 @@ for endpoint in endpoints:
     row['lien'] = endpoint
     rows.append(row)
 fileWriting('links.csv', fields, rows )
+print("links.csv completed")
 
 lignes = []
 for link in fileReader('links.csv'):
@@ -125,5 +126,6 @@ for link in fileReader('links.csv'):
 
 fields = ["headline", "overline","subline"]
 fileWriting('infos.csv', fields, lignes )
+print("infos.csv completed")
 
 #END OF THE CODE
