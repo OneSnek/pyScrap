@@ -97,7 +97,9 @@ def fileWriting(file, fieldnames, data):
 #"""
 #definir SWOUP
 def swoup(URL, process):
-    response = requests.get(URL)
+    print("printing URL")
+    print(URL)
+    response = requests.get(URL[0])
     if response.ok:
         print("yes")
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -127,5 +129,6 @@ for link in fileReader('links.csv'):
 fields = ["headline", "overline","subline"]
 fileWriting('infos.csv', fields, lignes )
 print("infos.csv completed")
+
 
 #END OF THE CODE
