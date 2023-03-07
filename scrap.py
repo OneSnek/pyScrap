@@ -1,27 +1,17 @@
 import requests
-import csv
 from bs4 import BeautifulSoup
-#All imports ready
+import csv
 
 #Base URL + uri + response
 baseUrl = "https://www.nacion.com"
 uri = "/ultimas-noticias/"
 response = requests.get(baseUrl + uri)
 
-if response.ok:
-    skoup = BeautifulSoup(response.text, "html.parser")
-    #MAIN ARTICLES
-    articles = skoup.findAll("article", {"class": "top-table-list"})
-    url = []
-    for article in articles:
-        a = article.find("a")
-        url.append({"link":baseUrl+a["href"]})
-    print(url)
-
 print("Is the site "+str(baseUrl)+" scrappable?")
 print(response.ok) #verifie si le site est scrappable:
 
-#GET ENDPOINTS
+
+#Get Endpoints = create list of links
 def getEndpoints(swoup):
     articles = swoup.findAll("article", {"class": "top-table-list"})
     url = []
@@ -30,55 +20,46 @@ def getEndpoints(swoup):
         url.append({"link":baseUrl+a["href"]})
     return url
 
-
-#TOOLKIT FUNCTIONS ------------------------
-#------------------------------------------
-def fileWriter(file, data):
-        with open(file, 'w+', encoding='UTF8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=data[0].keys())
-            writer.writeheader()
-            writer.writerows(data)
-
-def addBaseUrl(baseUrl, urls):
-        res = []
-        for url in urls:
-            res.append(baseUrl + url)
-        return res
-
-def tryToCleanOrReturnBlank(str):
-        try:
-            result = str.getText().strip()
-        except:
-            result = ""
-        return result
-# ------------------------------------------------------
-# ------------------------------------------csv imported
-fileWriter('links.csv', url)
-
-#GET INFO BY PAGE
+#Get info by page = create list of fiches & return them
 def getInfoByPage(soup):
-        fiches = []
-        infos = soup.findAll("div", {"class": "primary-font__PrimaryFontStyles-o56yd5-0"})
-        if infos != None:
-            for info in infos:
-                overline = tryToCleanOrReturnBlank(info.find("div", {"class": "overline"}))
-                headline = tryToCleanOrReturnBlank(info.find("div", {"class": "headline"}))
-                subline = tryToCleanOrReturnBlank(info.find("div", {"class": "sub-headline"}))
-                #print(headline)
+    fiches = []
+    infos = soup.findAll("div", {"class": "primary-font__PrimaryFontStyles-o56yd5-0"})
+    if infos != None:
+        for info in infos:
+            overline = tryToCleanOrReturnBlank(info.find("div", {"class": "overline"}))
+            headline = tryToCleanOrReturnBlank(info.find("div", {"class": "headline"}))
+            subline = tryToCleanOrReturnBlank(info.find("div", {"class": "sub-headline"}))
+            #print(headline)
 
 
-                #fiche = [overline, headline, subline]
-                fiche = { 
-                "headline": headline, 
-                "overline": overline,
-                "subline": subline,
-                }
-                #printing fiche
-                #print(fiche)
-                fiches = fiches.append(fiche)
-        return fiches
+            #fiche = [overline, headline, subline]
+            fiche = { 
+            "headline": headline, 
+            "overline": overline,
+            "subline": subline,
+            }
+            #printing fiche
+            #print(fiche)
+            fiches = fiches.append(fiche)
+    return fiches
 
-#==========================================================filewriter + filereader = alternative
+#Cleaner function
+def tryToCleanOrReturnBlank(str):
+    try:
+        result = str.getText().strip()
+    except:
+        result = ''
+    return result
+#SWOUP = URL(BaseUrl+uri) + function
+def swoup(URL, process):
+    response = requests.get(URL)
+    if response.ok:
+        print("swoup completing for: " + str(URL))
+        soup = BeautifulSoup(response.text, 'html.parser')
+        return process(soup)
+    return []
+
+#===============================================================READER
 def fileReader(file):
     result = []
     with open(file, 'r', encoding="UTF8", newline="") as f:
@@ -86,48 +67,39 @@ def fileReader(file):
         for line in reader:
            result.append(line) 
     return result
-
-def fileWriting(file, fieldnames, data):
+#======================
+def fileWriter(file, fieldnames, data):
     with open(file, 'w', encoding="UTF8", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(data)
     return fileReader(file)
-#============================================================
-#"""
-#definir SWOUP
-def swoup(URL, process):
-    print("printing URL")
-    print(URL)
-    response = requests.get(URL[0])
-    if response.ok:
-        print("yes")
-        soup = BeautifulSoup(response.text, 'html.parser')
-        return process(soup)
-    return []
-#"""
+#===============================================================WRITER
 
-#ENDPOINTS
+
+# fileWriter('infos.csv', fields, data)
+
+#Begin presentation
 endpoints = swoup(baseUrl + uri,  getEndpoints)
-print("printing endpoints:")
-print(endpoints)
 
-#presentation
+#creation of links.csv
 fields = ['lien']
 rows = []
 for endpoint in endpoints:
     row = {}
     row['lien'] = endpoint
     rows.append(row)
-fileWriting('links.csv', fields, rows )
+fileWriter('links.csv', fields, rows )
 print("links.csv completed")
 
+#creation of infos.csv array from links.csv listing
 lignes = []
 for link in fileReader('links.csv'):
     lignes.extend(swoup(link['lien'], getInfoByPage))
 
-fields = ["headline", "overline","subline"]
-fileWriting('infos.csv', fields, lignes )
+fields = ["name", "email", "title"]
+
+fileWriter('infos.csv', fields, lignes )
 print("infos.csv completed")
 
 
